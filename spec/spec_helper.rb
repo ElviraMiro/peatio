@@ -90,7 +90,7 @@ RSpec.configure do |config|
     KlineDB.stubs(:kline).returns([])
     Currency.any_instance.stubs(:price).returns(1.to_d)
     %w[eth-kovan eth-rinkeby btc-testnet].each { |blockchain| FactoryBot.create(:blockchain, blockchain) }
-    %i[usd eur btc eth trst ring].each { |ccy| FactoryBot.create(:currency, ccy) }
+    %i[usd eur btc eth trst ring tom].each { |ccy| FactoryBot.create(:currency, ccy) }
 
     %i[ eth_deposit eth_hot eth_warm eth_fee
         trst_deposit trst_hot
@@ -99,6 +99,7 @@ RSpec.configure do |config|
     %w[101 102 201 202 211 212 301 302 401 402].each { |ac_code| FactoryBot.create(:operations_account, ac_code)}
     FactoryBot.create(:trading_fee, market_id: :any, group: :any, maker: 0.0015, taker: 0.0015)
     FactoryBot.create(:withdraw_limit)
+    %i[ address_1 address_2 address_3 address_4 ].each { |ccy| FactoryBot.create(:whitelisted_smart_contract, ccy) }
   end
 
   config.after(:each) do
