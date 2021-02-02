@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_01_28_083207) do
+ActiveRecord::Schema.define(version: 2021_02_01_100941) do
 
   create_table "accounts", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.integer "member_id", null: false
@@ -82,6 +82,12 @@ ActiveRecord::Schema.define(version: 2021_01_28_083207) do
     t.datetime "updated_at", null: false
     t.index ["key"], name: "index_blockchains_on_key", unique: true
     t.index ["status"], name: "index_blockchains_on_status"
+  end
+
+  create_table "configs", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.string "key", limit: 64, null: false
+    t.text "value", null: false
+    t.index ["key"], name: "index_configs_on_key", unique: true
   end
 
   create_table "currencies", id: :string, limit: 10, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
@@ -460,7 +466,7 @@ ActiveRecord::Schema.define(version: 2021_01_28_083207) do
     t.decimal "sum", precision: 32, scale: 16, null: false
     t.string "type", limit: 30, null: false
     t.integer "transfer_type"
-    t.string "tid", limit: 64, null: false, collation: "utf8_bin"
+    t.string "tid", limit: 64
     t.string "rid", limit: 256, null: false
     t.string "note", limit: 256
     t.json "metadata"

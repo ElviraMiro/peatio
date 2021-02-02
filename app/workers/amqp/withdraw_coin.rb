@@ -73,6 +73,13 @@ module Workers
           @logger.warn id: withdraw.id,
                        message: 'Updating withdraw state in database.'
 
+          # Generate TID if client didn't provide TID
+          if transaction.options.present? && transaction.options.symbolize_keys[:tid].present?
+            withdraw.tid = transaction.options.symbolize_keys[:tid]
+          else
+            Helpers::TIDIdentifiable.generate(withdraw)
+          end
+
           withdraw.txid = transaction.hash
           withdraw.dispatch
           withdraw.save!
